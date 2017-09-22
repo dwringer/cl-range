@@ -11,10 +11,10 @@ expecting to use this based on familiarity with the Python functions,
 I would advise against using this package unless you familiarize
 yourself with the way indexing/slicing works on Python lists.
 
-## range (start &optional stop (step 1)
+## range (start &optional stop (step 1))
 "Creates a new RANGE as described by the function parameters"
 
-### range! (start &optional stop (step 1)
+### range! (start &optional stop (step 1))
 "Create a RANGE, then directly instantiate all values to a list"
 
 ### range-elt (r idx)
