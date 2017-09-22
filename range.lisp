@@ -20,6 +20,7 @@
   (length nil :type integer))
 
 (defun range (start &optional stop (step 1))
+  "Creates a new RANGE as described by the function parameters"
   (when (null stop)
     (setf stop start)
     (setf start 0))
@@ -38,6 +39,7 @@
 (defgeneric range-subseq (r start &optional end step))
 
 (defun range! (start &optional stop (step 1))
+  "Create a RANGE directly instantiating all values to a list"
   (range-to-list (range start stop step)))
 
 (defmethod range-elt ((r range) idx)
@@ -74,6 +76,7 @@
 	((>= i stop) (if (< (range-step r) 0) acc (reverse acc))))))
 
 (defmethod range-reverse ((r range))
+  "Return a RANGE that yields the same elements as a given range, in reverse"
   (let* ((step (range-step r))
 	 (sign (/ step (abs step)))
 	 (last (+ (range-start r) (* (- (range-length r) 1) step))))
@@ -92,7 +95,7 @@
 	     (tempr r)
 	     (result-range (range (range-elt tempr start-idx)
 				  (if (< step 0)
-				      (- (Range-elt tempr (- stop-idx 1)) 1)
+				      (1- (range-elt tempr (- stop-idx 1)))
 				      (1+ (range-elt tempr (- stop-idx 1))))
 				  step-by)))
 	(if to-list?
@@ -128,6 +131,7 @@
      (test-inst range (21 -4 -4) (r)
 	(assert (equal '(21 17 13 9 5 1 -3)
 		       (range-to-list r))))
+     
      (test-inst range (-11 3 3) (r)
 	(assert (equal '(-11 -8 -5 -2 1)
 		       (range-to-list r)))
